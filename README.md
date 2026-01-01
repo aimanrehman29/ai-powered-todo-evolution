@@ -4,7 +4,7 @@ Project files live in `phase-one/`. Change into that directory for all commands:
 
 ```bash
 cd phase-one
-python -m todo list
+python -m todo 
 python -m unittest discover -s tests -t .
 ```
 
