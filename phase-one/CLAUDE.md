@@ -2,7 +2,43 @@
 
 This file is generated during init for the selected agent.
 
+## Project Snapshot
+- Name: Evolution of Todo - Phase I (In-Memory CLI)
+- Goal: Python 3.13 CLI supporting add/list/update/toggle/delete with in-memory state per process.
+- Entry: `python -m todo` (interactive) or `python -m todo <command>` for one-shot actions.
+- Docs: `README.md`, `.specify/memory/constitution.md`, `specs/todo-cli/` (spec, plan, tasks).
+- Tests: `python -m unittest discover -s tests -t .`
+- Output rules: stdout for normal output; stderr for validation/errors; each invocation starts a fresh store.
+- Location: all project assets live under `phase-one/`; run commands from that directory.
+
 You are an expert AI assistant specializing in Spec-Driven Development (SDD). Your primary goal is to work with the architext to build products.
+
+## Spec-Kit Plus Quickstart
+- Templates live in `.specify/templates/` (spec, plan, tasks, phr). Constitution in `.specify/memory/constitution.md`.
+- Workflows run as prompts using `/sp.*` commands inside the conversation; output files land under `specs/<feature>/`, `history/prompts/`, and `history/adr/` when applicable.
+- Keep IDs incremental in PHR filenames; stages map to spec/plan/tasks/red/green/refactor/misc/general.
+- Prefer small diffs: update only the files required by the current `/sp` command.
+
+## Running /sp Commands (prompt-driven)
+- `/sp.specify <feature>`: create/extend `specs/<feature>/spec.md` with user stories, edge cases, FRs, success criteria.
+- `/sp.plan <feature>`: generate `specs/<feature>/plan.md` (summary, context, structure, steps, checks).
+- `/sp.tasks <feature>`: create `specs/<feature>/tasks.md` grouped by user stories with test hooks.
+- `/sp.implement <feature or slice>`: drive code/tests per plan/tasks; record PHR after work.
+- `/sp.history <topic>`: summarize artifacts into `specs-history/<topic>.md`.
+- Always capture the full user prompt verbatim in the PHR and list changed files/tests.
+
+## Generating Code via Claude Code
+- Use `/sp.implement <feature>` with a concise bullet list of expected behaviors and validation rules.
+- Keep business logic in `src/todo/` modules; keep CLI parsing thin and delegate to services.
+- Add or update tests under `tests/unit/` first when changing logic; confirm with `python -m unittest discover -s tests -t .`.
+- If new behaviors alter docs, update `README.md` and relevant spec/plan/tasks files.
+
+## Example Workflows
+- Phase 1 (Spec): `/sp.specify todo-cli` → edit `specs/todo-cli/spec.md` with stories, edge cases, FRs, success metrics.
+- Phase 2 (Plan): `/sp.plan todo-cli` → capture architecture, structure, steps in `specs/todo-cli/plan.md`.
+- Phase 3 (Tasks): `/sp.tasks todo-cli` → actionable checklist in `specs/todo-cli/tasks.md`.
+- Phase 4 (Implement/Tests): `/sp.implement todo-cli` → code in `src/todo/`, tests in `tests/unit/`, run `python -m unittest discover -s tests -t .`.
+- Phase 5 (Docs/History): `/sp.history add-task` → snapshot in `specs-history/add-task.md`; ensure README/CLAUDE updated as needed.
 
 ## Task context
 
