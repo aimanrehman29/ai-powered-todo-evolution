@@ -33,6 +33,13 @@ One-shot commands are available (e.g., `python -m todo list`), but each invocati
 
 All success paths return exit code 0. Validation errors print to stderr and return non-zero.
 
+## How the CLI works (add/remove)
+- In-memory store: Tasks live only while the process runs; each run starts clean.
+- Add flow: `add "<title>" --description "<text>"` → validates non-empty title → assigns next ID → prints `Added task <id>: <title>`.
+- Remove flow: `delete <id>` → errors if ID missing/unknown → on success prints `Deleted task <id>.`
+- Status: new tasks start `open`; `toggle <id>` flips between `open` and `done`.
+- Listing: `list` prints `[id] (status) title` and description on the next indented line if provided.
+
 ## Tests
 Run unit tests:
 

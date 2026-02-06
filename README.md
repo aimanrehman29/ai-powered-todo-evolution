@@ -9,3 +9,5 @@ python -m unittest discover -s tests -t .
 ```
 
 The detailed README, specs, and code are inside `phase-one/`.
+
+Phase II (full-stack) will live under `phase-two/` as it is developed.
