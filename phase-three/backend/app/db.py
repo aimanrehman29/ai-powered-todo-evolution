@@ -15,7 +15,7 @@ if not DATABASE_URL:
 
 print("[db] DATABASE_URL:", DATABASE_URL)
 
-# Use SSL with asyncpg; avoid sslmode param issues by passing ssl=True.
+# For asyncpg, pass ssl via connect_args; keep URL clean (no sslmode).
 engine: AsyncEngine = create_async_engine(
     DATABASE_URL,
     echo=False,

@@ -54,7 +54,14 @@ async def chat(
     # tools schema placeholder (Agents SDK tool schema expected)
     tools_schema = []
 
-    reply_text, tool_calls = await run_agent(agent_messages, tools_schema)
+    try:
+        reply_text, tool_calls = await run_agent(agent_messages, tools_schema)
+    except Exception as e:
+        # Fallback to avoid 500s if LLM/tool call fails
+        reply_text = "Sorry, I couldn't process that right now."
+        tool_calls = []
+        # Optionally log the error
+        print("run_agent error:", e)
 
     # store assistant message
     assistant_msg = Message(user_id=user_id, conversation_id=convo.id, role="assistant", content=reply_text or "")

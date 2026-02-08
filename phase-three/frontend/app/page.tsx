@@ -40,7 +40,7 @@ export default function Home() {
     if (!canSend) return;
     setLoading(true);
     setError(null);
-    const nextMessages = [...messages, { role: "user", content: input.trim() }];
+    const nextMessages: ChatMessage[] = [...messages, { role: "user" as const, content: input.trim() }];
     setMessages(nextMessages);
     const body = {
       message: input.trim(),
@@ -60,7 +60,7 @@ export default function Home() {
       setConversationId(data.conversation_id);
       setMessages([
         ...nextMessages,
-        { role: "assistant", content: data.response || "(no reply)" },
+        { role: "assistant" as const, content: data.response || "(no reply)" },
       ]);
       setInput("");
     } catch (e: any) {
