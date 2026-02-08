@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from datetime import datetime
 from typing import Optional, List
 
@@ -7,18 +5,19 @@ from sqlmodel import SQLModel, Field, Relationship
 
 
 class Conversation(SQLModel, table=True):
-    __tablename__ = "conversation"
+    """Chat conversation per user."""
 
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(index=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
+    # SQLModel will infer target from annotation; keep concrete typing (no future annotations).
     messages: List["Message"] = Relationship(back_populates="conversation")
 
 
 class Message(SQLModel, table=True):
-    __tablename__ = "message"
+    """Individual chat message."""
 
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(index=True)
@@ -27,12 +26,11 @@ class Message(SQLModel, table=True):
     content: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    conversation: Optional[Conversation] = Relationship(back_populates="messages")
+    conversation: Optional["Conversation"] = Relationship(back_populates="messages")
 
 
-# Placeholder Task model if needed for tool stubs (actual tasks live in phase-two codebase)
 class Task(SQLModel, table=True):
-    __tablename__ = "task"
+    """Simple task table (kept for tool stubs)."""
 
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(index=True)
