@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="ChatKit Backend")
+app = FastAPI()
 
 @app.get("/")
-def root():
+def greet_json():
     return {"Hello": "World!"}
